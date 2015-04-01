@@ -505,6 +505,11 @@ try:
             user = likeObj['user']
             userID = user['id']
             if userID not in userArray:
+                try:
+                    likeFollowCount = likeAndFollowUser(userID)
+                    likeCount = likeCount + likeFollowCount
+                except Exception:
+                    return
                 if (ACTION == LIKE_FOLLOW):
                     if likeAndFollowUser(userID):
                         likeCount = likeCount + int(likeAndFollowUser(userID))
@@ -512,6 +517,7 @@ try:
                 else:
                     if likeAndFollowUser(userID):
                         likeCount = likeCount + int(likeAndFollowUser(userID))
+                    followCount = followCount + 1
                 secs = random.randint(1, MAX_SECS)
                 time.sleep(secs)
             if (likeCount % 10 == 0 and likeCount != 0):
@@ -531,7 +537,7 @@ try:
 
     # Like and follow users
     def likeAndFollowUser(userID, follow = True):
-        numLikesFollows=0
+        numLikesFollows = 0
         userURL = INSTAGRAM_API + "users/%s" % (userID)
         urlUserMedia = userURL+ "/media/recent"
         data = reqURL(userURL)
