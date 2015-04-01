@@ -506,10 +506,12 @@ try:
             userID = user['id']
             if userID not in userArray:
                 if (ACTION == LIKE_FOLLOW):
-                    likeCount = likeCount + int(likeAndFollowUser(userID))
-                    followCount = followCount + 1
+                    if likeAndFollowUser(userID):
+                        likeCount = likeCount + int(likeAndFollowUser(userID))
+                        followCount = followCount + 1
                 else:
-                    likeCount = likeCount + int(likeAndFollowUser(userID))
+                    if likeAndFollowUser(userID):
+                        likeCount = likeCount + int(likeAndFollowUser(userID))
                 secs = random.randint(1, MAX_SECS)
                 time.sleep(secs)
             if (likeCount % 10 == 0 and likeCount != 0):
