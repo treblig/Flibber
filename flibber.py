@@ -577,7 +577,10 @@ try:
             userID = user['id']
             if userID not in userArray:
                 try:
-                    likeFollowCount = likeAndFollowUser(userID)
+                    if (options.ACTION == "LIKE_FOLLOW"):
+                        likeFollowCount = likeAndFollowUser(userID)
+                    elif (options.ACTION == "LIKE"):
+                        likeFollowCount = likeAndFollowUser(userID, False)
                     likeCount = likeCount + likeFollowCount
                 except Exception:
                     return
